@@ -1,6 +1,8 @@
 package jsipp.parser;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -8,7 +10,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import jsipp.parser.exception.JsippParseException;
-import jsipp.parser.model.xml.Sceneraio;
+import jsipp.parser.model.xml.Action;
 import jsipp.parser.model.xml.constants.ReceiveAttributes;
 import jsipp.parser.model.xml.constants.SippActions;
 import jsipp.parser.model.xml.receive.ReceiveAction;
@@ -19,22 +21,28 @@ import jsipp.parser.model.xml.send.SendRequest;
 import jsipp.parser.model.xml.send.SendResponse;
 
 public class SimpleParser {
+
+	private File file;
+
+	public SimpleParser(File file) {
+		this.file = file;
+	}
+
 	private static Logger logger = Logger.getLogger(SimpleParser.class
 			.getName());
 
-	public static void main(String ar[]) throws Exception {
-		Sceneraio sc = new SimpleParser().parser(new File(
-				"src/test/java/sip/junit/test/uac.xml"));
-		sc.play();
-		
+	// public static void main(String ar[]) throws Exception {
+	// Sceneraio sc = new SimpleParser().parser());
+	// sc.play();
+	//
+	//
+	// }
 
-	}
-
-	public Sceneraio parser(File file) throws Exception {
+	public List<Action> parser() throws Exception {
 		// TODO Auto-generated method stub
-		Sceneraio sceneraio = new Sceneraio();
-		logger.info(file.isFile() + "");
 
+		logger.info(file.isFile() + "");
+		List<Action> actions = new ArrayList<Action>();
 		DocumentBuilderFactory builderFactory = DocumentBuilderFactory
 				.newInstance();
 		builderFactory.setCoalescing(true);
@@ -49,20 +57,20 @@ public class SimpleParser {
 			switch (SippActions.get(element.getNodeName())) {
 			case SEND:
 				SendAction sendAction = parseSend(element);
-				sceneraio.addAction(sendAction);
+				actions.add(sendAction);
 				break;
 			case RECV:
 				ReceiveAction recvAction = parseReceive(element);
-				if (!recvAction.isOptional()) {
-					sceneraio.addAction(recvAction);
-				}
+				actions.add(recvAction);
+
 				break;
 			case PAUSE:
 				break;
 			}
 
 		}
-		return sceneraio;
+
+		return actions;
 	}
 
 	private SendAction parseSend(Element element) {
