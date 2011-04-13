@@ -1,0 +1,1 @@
+This project aims to play sipp scripts as a Junit Test
