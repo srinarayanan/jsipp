@@ -1,24 +1,15 @@
 package jsipp.parser;
 
 import java.io.File;
-import java.io.IOException;
-import java.text.ParseException;
 import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
-
 import jsipp.parser.exception.JsippParseException;
-import jsipp.parser.model.xml.Action;
 import jsipp.parser.model.xml.Sceneraio;
 import jsipp.parser.model.xml.constants.ReceiveAttributes;
-import jsipp.parser.model.xml.constants.SendAttributes;
 import jsipp.parser.model.xml.constants.SippActions;
 import jsipp.parser.model.xml.receive.ReceiveAction;
 import jsipp.parser.model.xml.receive.ReceiveRequest;
@@ -31,18 +22,15 @@ public class SimpleParser {
 	private static Logger logger = Logger.getLogger(SimpleParser.class
 			.getName());
 
-	public static void main(String ar[]) throws SAXException, IOException,
-			ParserConfigurationException {
+	public static void main(String ar[]) throws Exception {
 		Sceneraio sc = new SimpleParser().parser(new File(
 				"src/test/java/sip/junit/test/uac.xml"));
-		for (Action action : sc.getActions()) {
-			logger.info("Processing Action : " + action);
-		}
+		sc.play();
+		
 
 	}
 
-	public Sceneraio parser(File file) throws SAXException, IOException,
-			ParserConfigurationException {
+	public Sceneraio parser(File file) throws Exception {
 		// TODO Auto-generated method stub
 		Sceneraio sceneraio = new Sceneraio();
 		logger.info(file.isFile() + "");

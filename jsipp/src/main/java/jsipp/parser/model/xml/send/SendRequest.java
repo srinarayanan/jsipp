@@ -8,8 +8,8 @@ public class SendRequest extends SendAction {
 
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
 
+		transceiver.send(getContent());
 	}
 
 	@Override
