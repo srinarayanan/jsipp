@@ -75,7 +75,7 @@ public class SimpleParser {
 
 	private SendAction parseSend(Element element) {
 
-		String text = element.getTextContent().trim();
+		String text = element.getTextContent();
 		if (text.startsWith("SIP/2.0")) {
 			return new SendResponse(text);
 		}

@@ -46,7 +46,7 @@ public class TransceiverTest {
 		sendAction.getContent();
 		String request = sendAction.getContent();
 		logger.info(request);
-		transceiver.send(request);
+		//transceiver.send(request);
 
 	}
 
