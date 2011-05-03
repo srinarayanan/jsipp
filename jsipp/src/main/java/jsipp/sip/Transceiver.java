@@ -2,10 +2,11 @@ package jsipp.sip;
 
 import java.util.Properties;
 
+import javax.sip.ListeningPoint;
+import javax.sip.SipFactory;
+import javax.sip.SipProvider;
+import javax.sip.SipStack;
 import javax.sip.message.Request;
-
-import org.cafesip.sipunit.SipPhone;
-import org.cafesip.sipunit.SipStack;
 
 public class Transceiver {
 	private SessionTracker s;
@@ -14,20 +15,27 @@ public class Transceiver {
 	private SipStack sipStack;
 	private Transmitter transmitter;
 	private Receiver receiver;
-	SipPhone sipPhone;
+	private Properties properties;
+	private SipProvider sipProvider;
 
-	public Transceiver(int localPort,Properties properties) throws Exception {
+	public Transceiver(int localPort, Properties properties) throws Exception {
 		this.localPort = localPort;
-		
-		init(properties);
-
-		transmitter = new Transmitter(sipStack);
-		messageCreator = new MessageCreator(sipStack);
+		this.properties = properties;
+		init();
 	}
 
-	public void init(Properties properties) throws Exception {
+	public void init() throws Exception {
 
-		sipStack = new SipStack(SipStack.PROTOCOL_TCP, localPort, properties);
+		sipStack = SipFactory.getInstance().createSipStack(properties);
+		ListeningPoint tcp = sipStack.createListeningPoint("127.0.0.1",
+				localPort, ListeningPoint.TCP);
+
+		sipProvider = sipStack.createSipProvider(tcp);
+		receiver = new Receiver();
+		sipProvider.addSipListener(receiver);
+		transmitter = new Transmitter(sipProvider);
+		messageCreator = new MessageCreator(sipStack);
+
 	}
 
 	public void send(String request) {
@@ -35,4 +43,13 @@ public class Transceiver {
 		transmitter.send(sipRequest);
 	}
 
+	public void expectResp(String string) {
+
+	}
+
+	public void expect() {
+
+		long arg1 = 10;
+
+	}
 }

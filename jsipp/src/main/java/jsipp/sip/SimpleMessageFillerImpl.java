@@ -44,6 +44,7 @@ public class SimpleMessageFillerImpl implements MessageFiller {
 		fillers.put(SippPlaceHolders.CALL_ID, "newcallid000001");
 		fillers.put(SippPlaceHolders.LEN, "0");
 		fillers.put(SippPlaceHolders.CALL_NUMBER, "2222");
+		fillers.put(SippPlaceHolders.CSEQ, "1");
 
 	}
 

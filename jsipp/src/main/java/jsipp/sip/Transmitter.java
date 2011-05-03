@@ -1,21 +1,25 @@
 package jsipp.sip;
 
 import javax.sip.SipException;
+import javax.sip.SipProvider;
 import javax.sip.message.Request;
 
 public class Transmitter {
 
-	private org.cafesip.sipunit.SipStack sipStack;
+	private SipProvider sipProvider;
 
-	public Transmitter(org.cafesip.sipunit.SipStack sipStack) {
-		this.sipStack = sipStack;
+	public Transmitter(SipProvider sipProvider) {
+		this.sipProvider = sipProvider;
 	}
 
 	public void send(Request sipRequest) {
-		try {
-			sipStack.getSipProvider().sendRequest(sipRequest);
-		} catch (SipException e) {
 
+		// return sipPhone.sendRequestWithTransaction(sipRequest, false, null);
+		// sipStack.
+		try {
+			sipProvider.sendRequest(sipRequest);
+		} catch (SipException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
