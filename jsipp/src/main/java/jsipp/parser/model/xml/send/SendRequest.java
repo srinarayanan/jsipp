@@ -6,11 +6,11 @@ public class SendRequest extends SendAction {
 		super(content);
 	}
 
-	@Override
-	public void execute() {
-
-		transceiver.send(getContent());
-	}
+//	@Override
+//	public void execute() {
+//
+//		transceiver.send(getContent());
+//	}
 
 	@Override
 	public String toString() {

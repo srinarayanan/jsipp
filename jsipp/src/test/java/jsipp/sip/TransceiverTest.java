@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.logging.Logger;
 
+import jsipp.core.MessageReceiver;
 import jsipp.parser.SimpleParser;
 import jsipp.parser.model.xml.Action;
 import jsipp.parser.model.xml.send.SendAction;
@@ -34,7 +35,7 @@ public class TransceiverTest {
 				"logs/b2bualog1.xml");
 		properties.setProperty("gov.nist.javax.sip.TRACE_LEVEL", "32");
 
-		transceiver = new Transceiver(7070, properties);
+		transceiver = new Transceiver(7070, properties, new MessageReceiver());
 	}
 
 	@Test

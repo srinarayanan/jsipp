@@ -1,28 +1,27 @@
 package jsipp.parser.model.xml.receive;
 
+import jsipp.core.constants.MessageType;
+
 public class ReceiveResponse extends ReceiveAction {
 
 	int code;
 
-	public ReceiveResponse(String a) {
-		this.code = Integer.parseInt(a);
-	}
-
 	public ReceiveResponse(String response, boolean optional) {
+		super(MessageType.RESPONSE);
 		this.code = Integer.parseInt(response);
 		this.optional = optional;
-	}
-
-	@Override
-	public void execute() {
-		// TODO Auto-generated method stub
-
+		setReceive(true);
 	}
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
+
 		return "ReceiveResponse [ " + code + ", optional " + optional + "]";
+	}
+
+	public int getStatusCode() {
+
+		return this.code;
 	}
 
 }

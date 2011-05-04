@@ -8,6 +8,8 @@ import javax.sip.SipProvider;
 import javax.sip.SipStack;
 import javax.sip.message.Request;
 
+import jsipp.core.MessageReceiver;
+
 public class Transceiver {
 	private SessionTracker s;
 	private MessageCreator messageCreator;
@@ -18,10 +20,13 @@ public class Transceiver {
 	private Properties properties;
 	private SipProvider sipProvider;
 
-	public Transceiver(int localPort, Properties properties) throws Exception {
+	public Transceiver(int localPort, Properties properties, MessageReceiver messageReceiver)
+			throws Exception {
 		this.localPort = localPort;
 		this.properties = properties;
+		receiver = new Receiver(messageReceiver);
 		init();
+
 	}
 
 	public void init() throws Exception {
@@ -31,7 +36,7 @@ public class Transceiver {
 				localPort, ListeningPoint.TCP);
 
 		sipProvider = sipStack.createSipProvider(tcp);
-		receiver = new Receiver();
+
 		sipProvider.addSipListener(receiver);
 		transmitter = new Transmitter(sipProvider);
 		messageCreator = new MessageCreator(sipStack);

@@ -31,17 +31,9 @@ public class SimpleParser {
 	private static Logger logger = Logger.getLogger(SimpleParser.class
 			.getName());
 
-	// public static void main(String ar[]) throws Exception {
-	// Sceneraio sc = new SimpleParser().parser());
-	// sc.play();
-	//
-	//
-	// }
-
 	public List<Action> parser() throws Exception {
-		// TODO Auto-generated method stub
 
-		logger.info(file.isFile() + "");
+		logger.info(">> parser");
 		List<Action> actions = new ArrayList<Action>();
 		DocumentBuilderFactory builderFactory = DocumentBuilderFactory
 				.newInstance();
@@ -69,7 +61,7 @@ public class SimpleParser {
 			}
 
 		}
-
+		logger.info(" parser >>" + actions);
 		return actions;
 	}
 
@@ -95,11 +87,11 @@ public class SimpleParser {
 				.getValue());
 		if (!request.isEmpty()) {
 			r = new ReceiveRequest(request, optional);
-			// TODO take care of action - the contnet as well
+			// TODO take care of action - the content as well
 		} else if (!response.isEmpty()) {
 			r = new ReceiveResponse(response, optional);
 		} else {
-			throw new JsippParseException("requred attribute missing");
+			throw new JsippParseException("required attribute missing");
 		}
 
 		return r;

@@ -45,7 +45,15 @@ public class SimpleMessageFillerImpl implements MessageFiller {
 		fillers.put(SippPlaceHolders.LEN, "0");
 		fillers.put(SippPlaceHolders.CALL_NUMBER, "2222");
 		fillers.put(SippPlaceHolders.CSEQ, "1");
+		fillers.put(SippPlaceHolders.LAST_FROM, "DUMMY");
+		fillers.put(SippPlaceHolders.LAST_TO, "DUMMY");
 
+	}
+	public static void setLastFrom(String value){
+		fillers.put(SippPlaceHolders.LAST_FROM, value.trim());
+	}
+	public static void setLastTo(String value){
+		fillers.put(SippPlaceHolders.LAST_TO, value.trim());
 	}
 
 	public String fill(String reqString) {

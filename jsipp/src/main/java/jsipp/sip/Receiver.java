@@ -10,7 +10,15 @@ import javax.sip.SipListener;
 import javax.sip.TimeoutEvent;
 import javax.sip.TransactionTerminatedEvent;
 
+import jsipp.core.MessageReceiver;
+
 public class Receiver implements SipListener {
+	private MessageReceiver messageReceiver;
+
+	public Receiver(MessageReceiver messageReceiver) {
+		this.messageReceiver = messageReceiver;
+	}
+
 	private static final Logger logger = Logger.getLogger(Receiver.class
 			.getName());
 
@@ -25,12 +33,13 @@ public class Receiver implements SipListener {
 	}
 
 	public void processRequest(RequestEvent arg0) {
-		// TODO Auto-generated method stub
-
+		logger.info("processResponse" + arg0.getRequest());
+		messageReceiver.receiveRequest(arg0.getRequest());
 	}
 
 	public void processResponse(ResponseEvent arg0) {
 		logger.info("processResponse" + arg0.getResponse());
+		messageReceiver.receiveResponse(arg0.getResponse());
 
 	}
 

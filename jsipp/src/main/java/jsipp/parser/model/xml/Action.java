@@ -1,15 +1,16 @@
 package jsipp.parser.model.xml;
 
-import jsipp.sip.Transceiver;
-
 public abstract class Action {
-	public abstract void execute();
 
-	protected Transceiver transceiver;
+	
+	private boolean isReceive = false;
 
-	public void setTx(Transceiver transceiver) {
-		// TODO Auto-generated method stub
-		this.transceiver = transceiver;
+	public void setReceive(boolean isReceive) {
+		this.isReceive = isReceive;
+	}
+
+	public boolean isReceive() {
+		return this.isReceive;
 	}
 
 }

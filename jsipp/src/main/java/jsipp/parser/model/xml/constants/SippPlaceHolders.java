@@ -10,7 +10,10 @@ public enum SippPlaceHolders {
 	LOCAL_IP("local_ip"), //
 	LOCAL_PORT("local_port"), //
 	CALL_ID("call_id"), //
-	LEN("len"), BRANCH("branch"), CSEQ("cseq");
+	LEN("len"), BRANCH("branch"),//
+	CSEQ("cseq"),//
+	LAST_FROM("last_From:"),LAST_TO("last_To:")
+	;
 
 	private String value;
 

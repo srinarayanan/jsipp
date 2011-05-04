@@ -6,36 +6,49 @@
 		SEND: INVITE
 	-->
 	<send crlf="true">
-		<![CDATA[
+<![CDATA[
 		
-INVITE sip:41910223031@ims.telef-data.es SIP/2.0
-From: Alice <sip:1234567@atlanta.example.com>;tag=[call_number]
-To: Bob <sip:41910223031@ims.telef-data.es;user=phone>
-P-Asserted-Identity: "Mapachito" <sip:113022@ims.telef-data.es>
-X-BTNG: PBXCapabilities=EarlyStart
-FT-Ignore: Ignore this header. It is used to reduce scenarios overhead.
-P-Charging-Vector: icid-value=[clock_tick][pid];icid-generated-at=[local_ip];orig-ioi=home1.net
-Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+INVITE sip:[service]@[remote_ip]:[remote_port] SIP/2.0
+Via: SIP/2.0/[transport] [local_ip]:[local_port]
+From: sipp <sip:sipp@[local_ip]:[local_port]>;tag=[call_number]
+To: sut <sip:[service]@[remote_ip]:[remote_port]>
 Call-ID: [call_id]
-CSeq: [cseq] INVITE
-Contact: <sip:[local_ip]:[local_port];transport=[transport]>
-Max-Forwards: 5
+Cseq: 1 INVITE
+Contact: sip:sipp@[local_ip]:[local_port]
+Max-Forwards: 70
+Subject: Performance Test
 Content-Type: application/sdp
 Content-Length: [len]
 
+v=0
 o=user1 53655765 2353687637 IN IP[local_ip_type] [local_ip]
 s=-
-c=IN IP[media_ip_type] [media_ip]
 t=0 0
+c=IN IP[media_ip_type] [media_ip]
 m=audio [media_port] RTP/AVP 0
 a=rtpmap:0 PCMU/8000
-b=TIAS:8480
-v=0
+
 		
 ]]>
 	</send>
 	<recv response="100" rrs="true" crlf="true" optional="true" />
 	<recv response="200" rrs="true" crlf="true" />
+		<send crlf="true">
+		<![CDATA[
+		
+ACK sip:[service]@[remote_ip]:[remote_port] SIP/2.0
+Via: SIP/2.0/[transport] [local_ip]:[local_port]
+[last_From:]
+[last_To:]
+Call-ID: [call_id]
+Cseq: 1 ACK
+Contact: sip:sipp@[local_ip]:[local_port]
+Max-Forwards: 70
+Subject: Performance Test
+Content-Length: 0
+	
+]]>
+	</send>
 	
 	
 
